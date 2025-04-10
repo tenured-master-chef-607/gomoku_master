@@ -1,37 +1,61 @@
-# Gomoku Reinforcement Learning
+# Gomoku Master
 
-A reinforcement learning agent to play Gomoku using Deep Q-Learning (DQN).
+A sophisticated AI system for playing Gomoku (Five in a Row) with both traditional minimax AI and reinforcement learning capabilities.
 
 ## Game Rules
 
-- The game is played on a 19x19 board
+- The game is played on a board (default 15×15)
 - Players take turns placing stones (black and white)
 - The first player to connect 5 stones horizontally, vertically, or diagonally wins
 - If the board is filled with no winner, the game is a draw
 
+## Features
+
+- Beautiful GUI with wooden board texture and stone animations
+- Multiple AI difficulty levels (Easy, Medium, Hard)
+- Play as either Black or White
+- Classic AI using Minimax algorithm with alpha-beta pruning
+- Optional reinforcement learning agent using Deep Q-Learning (DQN)
+
 ## Project Structure
 
+- `main.py`: Entry point for running the game
+- `gui.py`: Implements the graphical user interface with Pygame
 - `board.py`: Implements the core Gomoku game logic
-- `gomoku_env.py`: Creates a Gymnasium environment for the Gomoku game
+- `ai.py`: Contains the minimax AI implementation with various difficulty levels
+- `gomoku_env.py`: Creates a Gymnasium environment for reinforcement learning
 - `dqn_agent.py`: Implements a Deep Q-Network agent with experience replay
-- `train.py`: Handles the training process with TensorBoard logging
-- `evaluate.py`: Provides a GUI for playing against the trained agent
+- `train.py`: Handles the training of the DQN agent with TensorBoard logging
+- `evaluate.py`: Provides functionality for evaluating trained agents
 
 ## Requirements
 
 ```
-numpy==1.24.3
-pygame==2.5.2
-torch==2.2.0
-gymnasium==0.29.1
-tensorboard==2.15.1
+numpy
+pygame
+torch
+gymnasium
+tensorboard
 ```
 
 ## Usage
 
-### Training the Agent
+### Playing the Game
 
-To train the agent, run:
+To play against the classic minimax AI:
+
+```bash
+python main.py
+```
+
+This will open the GUI where you can:
+- Choose to play as Black or White
+- Select AI difficulty (Easy, Medium, Hard)
+- Place stones by clicking on the board
+
+### Training the Reinforcement Learning Agent
+
+To train the DQN agent, run:
 
 ```bash
 python train.py
@@ -43,7 +67,7 @@ This will start training the DQN agent. The training progress can be monitored u
 tensorboard --logdir=logs
 ```
 
-### Playing Against the Agent
+### Playing Against the Trained DQN Agent
 
 To play against the trained agent, run:
 
@@ -51,22 +75,27 @@ To play against the trained agent, run:
 python evaluate.py models/gomoku_dqn_<episode>.pth
 ```
 
-Replace `<episode>` with the episode number of the model you want to use (e.g., `gomoku_dqn_1000.pth`).
+Replace `<episode>` with the episode number of the model you want to use.
 
-In the game, you play as black (first player) and the AI plays as white (second player).
+## AI Implementation Details
 
-## Implementation Details
+### Classic AI (Minimax)
+- Uses minimax algorithm with alpha-beta pruning
+- Evaluates board positions using pattern recognition
+- Adjustable depth and time limits based on difficulty
+- Tactical threat detection for improved play
 
-- The agent uses a simple feedforward neural network to learn the Q-values for each possible action
-- Experience replay is used to stabilize learning
-- A target network is updated periodically to prevent overestimation
-- Epsilon-greedy exploration strategy is used to balance exploration and exploitation
-- The reward function encourages winning and discourages losing
+### Reinforcement Learning Agent
+- Uses a Deep Q-Network (DQN) to learn optimal moves
+- Experience replay stabilizes learning
+- Target network updated periodically to prevent overestimation
+- Epsilon-greedy exploration strategy balances exploration and exploitation
 
 ## Customization
 
-Feel free to adjust the following parameters in the code:
+To customize the game or AI behavior:
 
-- Board size: Change the `size` parameter in `Board` and `GomokuEnv` classes
-- Training parameters: Modify the `episodes`, `batch_size`, and `target_update` parameters in `train.py`
-- Neural network architecture: Adjust the layers and sizes in the `DQN` class in `dqn_agent.py` 
+- Board size: Modify the `board_size` parameter in `GomokuGUI` constructor
+- AI difficulty: Change the `difficulty` parameter when creating a `GomokuAI` instance
+- Neural network architecture: Adjust the layers in the `DQN` class
+- Training parameters: Modify parameters in `train.py` 
