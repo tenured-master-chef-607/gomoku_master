@@ -1,6 +1,6 @@
 # Gomoku Reinforcement Learning
 
-This project implements a reinforcement learning agent to play Gomoku (Five in a Row) using Deep Q-Learning (DQN).
+A reinforcement learning agent to play Gomoku using Deep Q-Learning (DQN).
 
 ## Game Rules
 
@@ -65,7 +65,7 @@ In the game, you play as black (first player) and the AI plays as white (second 
 
 ## Customization
 
-You can adjust the following parameters in the code:
+Feel free to adjust the following parameters in the code:
 
 - Board size: Change the `size` parameter in `Board` and `GomokuEnv` classes
 - Training parameters: Modify the `episodes`, `batch_size`, and `target_update` parameters in `train.py`
